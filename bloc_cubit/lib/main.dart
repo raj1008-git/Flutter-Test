@@ -1,9 +1,9 @@
-import 'package:bloc_cubit/todo_bloc.dart';
+import 'package:bloc_cubit/pallete.dart';
+import 'package:bloc_cubit/widgets/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'add_todo_page.dart';
-import 'bloc/todo_bloc.dart';
+import 'login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,23 +15,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TodoBloc(),
+      create: (context) => AuthBloc(),
       child: MaterialApp(
-        title: 'Bloc Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+        title: 'Flutter Demo',
+        theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: Pallete.backgroundColor,
         ),
-        initialRoute: '/',
-        routes: {
-          '/': (_) => const TodoList(),
-          '/add-todo': (_) => const AddTodoPage(),
-        },
+        home: const LoginScreen(),
       ),
     );
   }
-}
-
-class TodoList {
-  const TodoList();
 }
