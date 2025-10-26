@@ -1,9 +1,9 @@
-import 'package:bloc_cubit/cubit/todo_cubit.dart';
-import 'package:bloc_cubit/todo_list.dart';
+import 'package:bloc_cubit/todo_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'add_todo_page.dart';
+import 'bloc/todo_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => TodoCubit(),
+      create: (context) => TodoBloc(),
       child: MaterialApp(
         title: 'Bloc Demo',
         theme: ThemeData(
@@ -23,8 +23,15 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         initialRoute: '/',
-        routes: {'/': (_) => TodoList(), '/add-todo': (_) => AddTodoPage()},
+        routes: {
+          '/': (_) => const TodoList(),
+          '/add-todo': (_) => const AddTodoPage(),
+        },
       ),
     );
   }
+}
+
+class TodoList {
+  const TodoList();
 }
