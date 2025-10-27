@@ -1,9 +1,10 @@
-import 'package:bloc_cubit/pallete.dart';
-import 'package:bloc_cubit/widgets/bloc/auth_bloc.dart';
+import 'package:bloc_cubit/data/data_provider/weather_data_provider.dart';
+import 'package:bloc_cubit/data/repository/weather_repository.dart';
+import 'package:bloc_cubit/presentation/screens/weather_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'login_screen.dart';
+import 'bloc/weather_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,14 +15,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthBloc(),
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: Pallete.backgroundColor,
+    return RepositoryProvider(
+      create: (context) => WeatherRepository(WeatherDataProvider()),
+      child: BlocProvider(
+        create: (centext) => WeatherBloc(context.read<WeatherRepository>()),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData.dark(useMaterial3: true),
+          home: const WeatherScreen(),
         ),
-        home: const LoginScreen(),
       ),
     );
   }
